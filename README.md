@@ -49,3 +49,7 @@ Customizable question sets (e.g., FAANG-style, STAR interviews)
 Leaderboards and gamified scoring to boost motivation
 
 📌 This project is perfect for candidates who want a realistic interview simulation experience, actionable feedback, and an easy way to practice and improve before facing real interviews
+
+The Username: user@example.com and the password: password123 to be used during login.
+
+
