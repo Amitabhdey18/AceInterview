@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Result - AceInterview</title>
+  <style>
+    /* Styling for the result page */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f7f7f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    .result-container {
+      background-color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      padding: 40px;
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #4f46e5;
+      margin-bottom: 20px;
+    }
+
+    .result-box {
+      font-size: 1.2rem;
+      color: #333;
+      margin: 10px 0;
+    }
+
+    .feedback {
+      font-size: 1rem;
+      margin-top: 20px;
+      color: #666;
+    }
+
+    .back-link {
+      color: #4f46e5;
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="result-container">
+    <h1>Your Quiz Result</h1>
+    <div class="result-box" id="result"></div>
+    <div class="feedback" id="feedback"></div>
+    <a href="quiz.html" class="back-link">Go Back to Quiz</a>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+
+  <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Get current user
+    firebase.auth().onAuthStateChanged(async (user) => {
+      if (user) {
+        // Fetch quiz result from Firestore
+        const userId = user.uid;
+        const quizId = "quiz1";  // Assuming you know the quiz ID
+        const quizDocRef = db.collection('users').doc(userId).collection('quizResults').doc(quizId);
+
+        try {
+          const doc = await quizDocRef.get();
+          if (doc.exists) {
+            const quizData = doc.data();
+            const correctAnswers = quizData.correctAnswers;
+            const totalQuestions = quizData.totalQuestions;
+            const feedback = quizData.feedback;
+
+            // Calculate score percentage
+            const score = (correctAnswers / totalQuestions) * 100;
+
+            // Display result and feedback
+            document.getElementById('result').innerHTML = `You answered ${correctAnswers} out of ${totalQuestions} questions correctly.`;
+            document.getElementById('feedback').innerHTML = feedback;
+
+            // Optional: You can add additional feedback based on the score
+            if (score >= 80) {
+              document.getElementById('feedback').innerHTML += "<br/> Excellent work!";
+            } else if (score >= 50) {
+              document.getElementById('feedback').innerHTML += "<br/> Good job, but there's room for improvement.";
+            } else {
+              document.getElementById('feedback').innerHTML += "<br/> Don't worry, keep practicing!";
+            }
+          } else {
+            document.getElementById('result').innerHTML = "No result found for this quiz.";
+          }
+        } catch (error) {
+          console.error("Error getting quiz result: ", error);
+        }
+      } else {
+        // If no user is logged in, redirect to login page
+        window.location.href = 'login.html';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!-- interview.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="interview-container">
+        <h1>Welcome to Your Interview</h1>
+        <select id="roleSelect">
+            <option value="developer">Developer</option>
+            <option value="designer">Designer</option>
+            <option value="manager">Manager</option>
+            <!-- Add more roles/domains as needed -->
+        </select>
+        <button id="startInterview">Start Interview</button>
+        <div id="interviewQuestions"></div>
+    </div>
+
+    <script>
+        document.getElementById("startInterview").addEventListener("click", () => {
+            const selectedRole = document.getElementById("roleSelect").value;
+
+            // Call the backend to get questions based on the selected role
+            fetch("http://127.0.0.1:5000/generate-questions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ role: selectedRole })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.questions) {
+                    const questionsDiv = document.getElementById("interviewQuestions");
+                    questionsDiv.innerHTML = "";  // Clear previous content
+
+                    data.questions.forEach((question, index) => {
+                        const questionElement = document.createElement("div");
+                        questionElement.innerHTML = `<p><b>Q${index + 1}:</b> ${question}</p>`;
+                        questionsDiv.appendChild(questionElement);
+                    });
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            })
+            .catch(error => {
+                alert('Error: ' + error.message);
+            });
+        });
+    </script>
+</body>
+</html>

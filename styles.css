@@ -1,0 +1,228 @@
+.landing-box {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 6px 10px rgba(0,0,0,0.25);
+  }
+  
+  .landing-box h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .landing-box p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .btn-outline {
+    padding: 12px 25px;
+    border: 2px solid #4A90E2;
+    background: none;
+    color: #4A90E2;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-outline:hover {
+    background-color: #4A90E2;
+    color: #fff;
+  }
+  .dashboard-box {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px 25px;
+    text-align: center;
+    box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .dashboard-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .dashboard-box label {
+    display: block;
+    text-align: left;
+    margin: 10px 0 5px;
+    color: #555;
+  }
+  
+  .dashboard-box select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+  }
+  
+  .dashboard-box .btn {
+    width: 100%;
+    padding: 12px;
+  }
+  .chat-box {
+    background: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    height: 70vh;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+  }
+  
+  .chat-bubble {
+    max-width: 70%;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    border-radius: 18px;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  
+  .bot-bubble {
+    background-color: #E0ECFF;
+    color: #333;
+    align-self: flex-start;
+    margin-right: auto;
+  }
+  
+  .user-bubble {
+    background-color: #DCF8C6;
+    color: #333;
+    align-self: flex-end;
+    margin-left: auto;
+  }
+  
+  .chat-input-box {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .chat-input-box input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  .chat-input-box .btn {
+    padding: 12px 20px;
+  }
+  .result-box {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px 25px;
+    text-align: center;
+    box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .result-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .score-section, .feedback-section {
+    margin-bottom: 25px;
+  }
+  
+  .score-section p {
+    font-size: 32px;
+    font-weight: bold;
+    color: #28a745;
+    margin-top: 10px;
+  }
+  
+  .feedback-section ul {
+    text-align: left;
+    padding-left: 20px;
+    list-style-type: disc;
+  }
+  
+  #download-btn {
+    background-color: #007BFF;
+  }
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.selection-container {
+    margin-bottom: 20px;
+}
+
+.button-group button {
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.button-group button:hover {
+    background-color: #45a049;
+}
+
+.chat-box {
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#chat-log {
+    height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

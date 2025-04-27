@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - AceInterview</title>
+  <style>
+    /* Reset default margin, padding and box sizing */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body styling */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #6e7cfc, #3498db);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Container for the login box */
+    .login-container {
+      background-color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      padding: 40px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      animation: fadeIn 1s ease-out;
+    }
+
+    /* Login heading */
+    h1 {
+      font-size: 2.2rem;
+      color: #4f46e5;
+      margin-bottom: 25px;
+      font-weight: 700;
+    }
+
+    /* Input fields styling */
+    .input-field {
+      width: 100%;
+      padding: 12px;
+      margin: 15px 0;
+      border-radius: 8px;
+      border: 2px solid #ccc;
+      font-size: 1rem;
+      transition: border 0.3s ease;
+    }
+
+    .input-field:focus {
+      border-color: #4f46e5;
+      outline: none;
+    }
+
+    /* Submit button styling */
+    .submit-btn {
+      background-color: #4f46e5;
+      color: white;
+      padding: 14px 22px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #4338ca;
+    }
+
+    /* Error and success message styling */
+    .error-message {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    .success-message {
+      color: green;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    /* Sign up link */
+    .signup-link {
+      color: #4f46e5;
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+
+    .signup-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive design */
+    @media screen and (max-width: 768px) {
+      .login-container {
+        padding: 25px;
+        width: 90%;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .submit-btn {
+        padding: 12px 20px;
+      }
+
+      .input-field {
+        font-size: 0.9rem;
+      }
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h1>Login</h1>
+    <form id="login-form">
+      <input type="email" id="username" class="input-field" placeholder="Username" required />
+      <input type="password" id="password" class="input-field" placeholder="Password" required />
+      <button type="submit" class="submit-btn">Login</button>
+      <div class="error-message" id="error-message"></div>
+      <div class="success-message" id="success-message"></div>
+    </form>
+    <a href="signup.html" class="signup-link">Don't have an account? Sign Up</a>
+  </div>
+
+  <script>
+    // Mock authentication function
+    function mockAuth(username, password) {
+      const validUsername = "user@example.com";  // Replace with your mock username
+      const validPassword = "password123";      // Replace with your mock password
+
+      return username === validUsername && password === validPassword;
+    }
+
+    // Handle form submission
+    const loginForm = document.getElementById('login-form');
+    loginForm.addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const errorMessage = document.getElementById('error-message');
+      const successMessage = document.getElementById('success-message');
+
+      // Clear previous messages
+      errorMessage.textContent = '';
+      successMessage.textContent = '';
+
+      // Mock authentication
+      if (mockAuth(username, password)) {
+        // Successful login
+        successMessage.textContent = 'Login successful!';
+        errorMessage.style.display = 'none';
+
+        // Redirect to dashboard
+        window.location.href = 'dashboard.html';  // Replace with the actual path to your dashboard page
+      } else {
+        // Handle login errors
+        errorMessage.textContent = 'Invalid username or password.';
+        errorMessage.style.display = 'block';
+      }
+    });
+  </script>
+
+</body>
+</html>

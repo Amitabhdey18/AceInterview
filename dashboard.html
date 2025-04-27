@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AceInterview - Prepare for Your Interview</title>
+  <style>
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #6e7dff, #c3b8ff);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      color: #080707;
+    }
+
+    .roles, .domains, .interview {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .role-button {
+      padding: 15px 25px;
+      background-color: #fff;
+      border: 2px solid #c3b8ff;
+      border-radius: 20px;
+      font-size: 1rem;
+      color: #0b0b0c;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .role-button:hover {
+      background-color: #c3b8ff;
+      color: #fff;
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .role-button.selected {
+      background-color: #4f46e5;
+      color: #fff;
+      border-color: #4f46e5;
+      font-weight: bold;
+    }
+
+    .chat-box {
+      width: 100%;
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      padding: 25px;
+      margin-bottom: 20px;
+      height: 400px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-box::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .chat-box::-webkit-scrollbar-thumb {
+      background-color: #6e7dff;
+      border-radius: 20px;
+    }
+
+    .chat-message {
+      padding: 12px 20px;
+      margin: 8px 0;
+      border-radius: 20px;
+      max-width: 70%;
+      word-wrap: break-word;
+    }
+
+    .bot {
+      background-color: #eef2ff;
+      color: #4f46e5;
+      align-self: flex-start;
+    }
+
+    .user {
+      background-color: #4f46e5;
+      color: #fff;
+      align-self: flex-end;
+      text-align: right;
+    }
+
+    .typing-indicator {
+      font-size: 1rem;
+      color: #c3b8ff;
+      font-style: italic;
+      text-align: center;
+    }
+
+    .input-box {
+      display: flex;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .input-box input {
+      flex: 1;
+      padding: 15px;
+      border: 2px solid #d1d5db;
+      border-radius: 12px 0 0 12px;
+      font-size: 1rem;
+      border: 2px solid #c3b8ff;
+    }
+
+    .input-box button {
+      padding: 15px 25px;
+      background-color: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 0 12px 12px 0;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 1rem;
+    }
+
+    .input-box button:hover {
+      background-color: #4338ca;
+    }
+
+    /* Results and End Quiz Buttons */
+    .result-button {
+      background-color: #4f46e5;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 10px;
+      font-size: 1rem;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .result-button:hover {
+      background-color: #4338ca;
+    }
+
+    .exit-button {
+      background-color: red;
+      color: white;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .chat-box {
+        height: 300px;
+      }
+
+      .input-box input, .input-box button {
+        font-size: 0.9rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎯 AceInterview</h1>
+  <h2>Practice with an AI-powered Interview Coach</h2>
+
+  <h2>Select Your Role:</h2>
+  <div class="roles">
+    <button class="role-button" onclick="selectRole('Software Engineer')">Software Engineer</button>
+    <button class="role-button" onclick="selectRole('Product Manager')">Product Manager</button>
+    <button class="role-button" onclick="selectRole('Data Scientist')">Data Scientist</button>
+    <button class="role-button" onclick="selectRole('UX Designer')">UX Designer</button>
+    <button class="role-button" onclick="selectRole('DevOps Engineer')">DevOps Engineer</button>
+    <button class="role-button" onclick="selectRole('Project Manager')">Project Manager</button>
+  </div>
+
+  <div class="domains" style="display: none;">
+    <h2>Select Your Domain:</h2>
+    <button class="role-button" onclick="selectDomain('Backend')">Backend</button>
+    <button class="role-button" onclick="selectDomain('Frontend')">Frontend</button>
+    <button class="role-button" onclick="selectDomain('Full Stack')">Full Stack</button>
+    <button class="role-button" onclick="selectDomain('Cloud')">Cloud</button>
+    <button class="role-button" onclick="selectDomain('System Design')">System Design</button>
+    <button class="role-button" onclick="selectDomain('Machine Learning')">Machine Learning</button>
+  </div>
+
+  <div class="interview" style="display: none;">
+    <h2>Select Your Interview Type:</h2>
+    <button class="role-button" onclick="selectInterviewType('Technical Round')">Technical Round</button>
+    <button class="role-button" onclick="selectInterviewType('Communication Round')">Communication Round</button>
+  </div>
+
+  <div class="chat-box" id="chat-box">
+    <!-- Chat messages will appear here -->
+  </div>
+
+  <div class="input-box">
+    <input type="text" id="user-input" placeholder="Type your answer..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <!-- View Results Button -->
+  <button class="result-button" id="viewResultsButton" onclick="viewResults()">View Results</button>
+
+  <!-- End Quiz Button -->
+  <button class="result-button" id="endQuizButton" onclick="endQuiz()">End Quiz</button>
+
+  <script>
+    let selectedRole = '';
+    let selectedDomain = '';
+    let selectedInterviewType = '';
+    let questionIndex = 0;
+    let userAnswers = [];
+    let correctAnswers = {
+      "Software Engineer": {
+        "Backend": ["RESTful API", "Load balancing", "SQL vs NoSQL"],
+        "Frontend": ["HTML, CSS, JavaScript", "DOM", "CSS box model"],
+        "Full Stack": ["Front-end and back-end communication", "MVC", "Sync vs Async programming"]
+      },
+      // Add more roles and domains here
+    };
+
+    const questions = {
+      "Software Engineer": {
+        "Backend": ["What is a RESTful API?", "Explain the concept of load balancing.", "What is the difference between SQL and NoSQL databases?"],
+        "Frontend": ["What are the differences between HTML, CSS, and JavaScript?", "What is the DOM?", "Explain the box model in CSS."],
+        "Full Stack": ["Explain how the front-end and back-end of a web application communicate.", "What is MVC architecture?", "Explain synchronous and asynchronous programming."]
+      },
+      // Add more roles and domains here
+    };
+
+    function selectRole(role) {
+      selectedRole = role;
+      updateUI('domain');
+    }
+
+    function selectDomain(domain) {
+      selectedDomain = domain;
+      updateUI('interview');
+    }
+
+    function selectInterviewType(interviewType) {
+      selectedInterviewType = interviewType;
+      startInterview();
+    }
+
+    function updateUI(stage) {
+      if (stage === 'domain') {
+        document.querySelector('.roles').style.display = 'none';
+        document.querySelector('.domains').style.display = 'block';
+      } else if (stage === 'interview') {
+        document.querySelector('.domains').style.display = 'none';
+        document.querySelector('.interview').style.display = 'block';
+      }
+    }
+
+    function startInterview() {
+      document.querySelector('.interview').style.display = 'none';
+      document.querySelector('.chat-box').style.display = 'block';
+      displayQuestion();
+    }
+
+    function displayQuestion() {
+      const question = questions[selectedRole][selectedDomain][questionIndex];
+      addMessageToChat(question, 'bot');
+    }
+
+    function addMessageToChat(message, sender) {
+      const chatBox = document.getElementById('chat-box');
+      const messageDiv = document.createElement('div');
+      messageDiv.classList.add('chat-message', sender);
+      messageDiv.textContent = message;
+      chatBox.appendChild(messageDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function sendMessage() {
+      const userInput = document.getElementById('user-input').value;
+      if (!userInput.trim()) return;
+
+      addMessageToChat(userInput, 'user');
+      userAnswers.push(userInput);
+      questionIndex++;
+
+      if (questionIndex < questions[selectedRole][selectedDomain].length) {
+        setTimeout(displayQuestion, 1000);
+      } else {
+        setTimeout(showResults, 1000);
+      }
+
+      document.getElementById('user-input').value = '';
+    }
+
+    function showResults() {
+      document.getElementById('viewResultsButton').style.display = 'block';
+      document.getElementById('endQuizButton').style.display = 'block';
+      addMessageToChat('Quiz complete! Click "View Results" to see your performance.', 'bot');
+    }
+
+    function viewResults() {
+      let score = 0;
+      userAnswers.forEach((answer, index) => {
+        const correctAnswer = correctAnswers[selectedRole][selectedDomain][index];
+        if (answer.toLowerCase().includes(correctAnswer.toLowerCase())) {
+          score++;
+        }
+      });
+      alert(`You scored ${score} out of ${userAnswers.length}`);
+    }
+
+    function endQuiz() {
+      alert('You have ended the quiz.');
+      location.reload(); // Reload page to start again
+    }
+  </script>
+</body>
+</html>
